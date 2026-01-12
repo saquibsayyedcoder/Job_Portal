@@ -1,0 +1,25 @@
+.scroller {
+  -ms-overflow-style: none;
+  scrollbar-width: thin;
+  scroll-behavior: smooth;
+}
+
+.scroller::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scroller::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scroller::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 3px;
+}
+
+/* Only show when actually scrolling or hovering */
+.scroller:hover::-webkit-scrollbar-thumb,
+.scroller:active::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+}
+

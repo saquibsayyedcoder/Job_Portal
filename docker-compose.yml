@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo
+    container_name: honorfreelancer-db
+    ports:
+      - "7779:27017"
+    volumes:
+      - honorfreelancer-data:/data/db
+    networks:
+      - honor-network
+    restart: always
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: honorfreelancer-backend
+    ports:
+      - "7778:7778"
+    env_file:
+      - ./backend/.env
+    depends_on:
+      - mongo
+    networks:
+      - honor-network
+    restart: always
+
+  frontend:
+    build: 
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: honorfreelancer-frontend
+    ports:
+      - "7777:80"
+    depends_on:
+      - backend
+    networks:
+      - honor-network
+    restart: always
+
+# volumes:
+#   honorfreelancer-data:
+volumes:
+  honorfreelancer-data:
+    name: honorfreelancer-data
+
+
+networks:
+  honor-network:
+    driver: bridge
